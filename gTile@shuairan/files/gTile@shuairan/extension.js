@@ -1005,6 +1005,8 @@ Grid.prototype = {
     this.table.destroy_all_children();
     this.cols = preferences.nbCols;
     this.rows = preferences.nbRows;
+    if (this.cols.length <= this.colKey || this.rows.length <= this.rowKey)
+      this.reset();
     this._displayElements();
   },
 
