@@ -107,7 +107,6 @@ export class Config {
             let sgbx = basestr + i + 'x';
             let sgby = basestr + i + 'y';
             let nameOverride = basestr + i + "NameOverride";
-            // TODO: same here
             let gbx = this.settings.getValue<Row[]>(sgbx);
             let gby = this.settings.getValue<Column[]>(sgby);
             if (gbx.length == 0 || gby.length == 0)

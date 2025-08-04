@@ -5,7 +5,6 @@ export const reset_window = (metaWindow: imports.gi.Meta.Window | null) => {
     metaWindow?.unmaximize(Meta.MaximizeFlags.HORIZONTAL);
     metaWindow?.unmaximize(Meta.MaximizeFlags.VERTICAL);
     metaWindow?.unmaximize(Meta.MaximizeFlags.HORIZONTAL | Meta.MaximizeFlags.VERTICAL);
-    // metaWindow?.tile(Meta.TileMode.NONE, false);
 }
 
 const _getInvisibleBorderPadding = (metaWindow: imports.gi.Meta.Window) => {
@@ -20,8 +19,8 @@ export const move_maximize_window = (metaWindow: imports.gi.Meta.Window | null, 
     if (metaWindow == null)
         return;
 
-    //TODO: See if this is still needed
-    let [borderX, borderY] = _getInvisibleBorderPadding(metaWindow);
+    // Adjust coordinates for invisible border padding
+    const [borderX, borderY] = _getInvisibleBorderPadding(metaWindow);
 
     x = x - borderX;
     y = y - borderY;
@@ -33,27 +32,6 @@ export const move_maximize_window = (metaWindow: imports.gi.Meta.Window | null, 
 export const move_resize_window = (metaWindow: imports.gi.Meta.Window | null, x: number, y: number, width: number, height: number) => {
     if (!metaWindow)
         return;
-
-    // Fix for client-decorated window positioning by @mtwebster
-    // See here for more info
-    // https://github.com/linuxmint/cinnamon-spices-extensions/commit/fda3a2b0c6adfc79ba65c6bd9a174795223523b9
-
-    // TODO: See if this is still needed
-    // let clientRect = metaWindow.get_buffer_rect();
-    // let outerRect = metaWindow.get_frame_rect();
-
-    // let client_deco = clientRect.width > outerRect.width &&
-    //     clientRect.height > outerRect.height;
-
-    // if (client_deco) {
-    //     x -= outerRect.x - clientRect.x;
-    //     y -= outerRect.y - clientRect.y;
-    //     width += (clientRect.width - outerRect.width);
-    //     height += (clientRect.height - outerRect.height);
-    // } else {
-    //     width -= (outerRect.width - clientRect.width);
-    //     height -= (outerRect.height - clientRect.height);
-    // }
 
     metaWindow.move_resize_frame(true, x, y, width, height);
     metaWindow.move_frame(true, x, y); // forces move for windows like terminal that only resize from above command
