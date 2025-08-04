@@ -18,4 +18,4 @@ cd $DIR
 npx webpack
 cd ..
 ./cinnamon-spices-makepot gTile@shuairan
-cd $PWD
+cd "$path"
