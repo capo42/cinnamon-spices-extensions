@@ -286,7 +286,7 @@ export class Grid {
     this.cols = this.app.config.nbCols;
     this.rows = this.app.config.nbRows;
     // New grid is smaller than currently selected element, Reset selection
-    if (this.cols.length <= this.colKey || this.rows.length <= this.colKey)
+    if (this.cols.length <= this.colKey || this.rows.length <= this.rowKey)
       this.Reset();
 
     this.RebuildGridElements();
