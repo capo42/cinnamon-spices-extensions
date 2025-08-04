@@ -334,10 +334,10 @@ export class App implements IApp {
   /**
    * Disconnects from all subscribed events for the Previous Window
    */
-   private ResetFocusedWindow = () => {
+  private ResetFocusedWindow = () => {
     if (this.focusMetaWindowConnections.length > 0) {
-      for (var idx in this.focusMetaWindowConnections) {
-        this.focusMetaWindow?.disconnect(this.focusMetaWindowConnections[idx]);
+      for (const id of this.focusMetaWindowConnections) {
+        this.focusMetaWindow?.disconnect(id);
       }
     }
 
