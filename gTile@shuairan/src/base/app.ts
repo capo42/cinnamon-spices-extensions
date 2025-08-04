@@ -20,6 +20,8 @@ export class App implements IApp {
   private monitors = Main.layoutManager.monitors;
   private focusMetaWindowConnections: number[] = [];
   private focusMetaWindowPrivateConnections: number[] = [];
+  private trackerConnectId: number | null = null;
+  private screenConnectId: number | null = null;
 
   public readonly area = new St.BoxLayout({ style_class: 'grid-preview' });
 
@@ -51,11 +53,22 @@ export class App implements IApp {
       Main.uiGroup.add_actor(this.area);
       this.config = new Config(this);
       this.InitGrid();
-      this.tracker.connect("notify::focus-app", this.OnFocusedWindowChanged);
-      global.screen.connect('monitors-changed', this.ReInitialize);
+      this.trackerConnectId = this.tracker.connect("notify::focus-app", this.OnFocusedWindowChanged);
+      this.screenConnectId = global.screen.connect('monitors-changed', this.ReInitialize);
   }
 
   public destroy() {
+    if (this.trackerConnectId !== null) {
+      this.tracker.disconnect(this.trackerConnectId);
+      this.trackerConnectId = null;
+    }
+    if (this.screenConnectId !== null) {
+      global.screen.disconnect(this.screenConnectId);
+      this.screenConnectId = null;
+    }
+    if (this.area.get_parent() === Main.uiGroup) {
+      Main.uiGroup.remove_actor(this.area);
+    }
     this.config.destroy();
     this.DestroyGrid();
     this.ResetFocusedWindow();
@@ -178,6 +191,12 @@ export class App implements IApp {
   //#region Init
 
   public ReInitialize = () => {
+    if (this.trackerConnectId === null) {
+      this.trackerConnectId = this.tracker.connect("notify::focus-app", this.OnFocusedWindowChanged);
+    }
+    if (this.screenConnectId === null) {
+      this.screenConnectId = global.screen.connect('monitors-changed', this.ReInitialize);
+    }
     this.monitors = Main.layoutManager.monitors;
     this.DestroyGrid();
     this.InitGrid();
