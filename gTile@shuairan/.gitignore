@@ -1,0 +1,38 @@
+# 🍃 Node.js / npm
+node_modules/
+package-lock.json
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ⚙️ Webpack / Build Output
+dist/
+extension.js
+*.bundle.js
+
+# 🧠 TypeScript Build Output
+*.js
+*.js.map
+*.d.ts
+
+# 🧪 Test Output
+coverage/
+
+# 🧰 IDEs & Editor Settings (optional)
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# 🍏 macOS
+.DS_Store
+
+# 🔒 Private Keys / Environment Files (nur wenn verwendet)
+.env
+.env.*
+
+# 🧹 Temp Files
+*.log
+*.tmp
+*.swp
+
