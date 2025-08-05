@@ -1,0 +1,13 @@
+{
+  "extends": "../../tsconfig.json",
+  "include": [
+    "./**/*",
+    "../base/**/*",
+    "./gjs.d.ts"
+  ],
+  "compilerOptions": {
+    "types": [],               // verhindert Einbindung von @types/node o.ä.
+    "skipLibCheck": true,
+    "noEmitOnError": false
+  }
+}
